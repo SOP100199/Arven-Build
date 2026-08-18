@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Node
+node_modules/
+npm-debug.log*
+
+# Build output
+build/
+dist/
+out/
+
+# Simulation output
+*.vcd
+*.fst
+*.log
+
+# FPGA / hardware generated files
+*.bit
+*.bin
+*.hex
+*.map
+*.elf
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
