@@ -1,98 +1,114 @@
-# ARVEN-16 Architecture
 
-## 1. Overview
+---
 
-ARVEN-16 is the initial 16-bit processor architecture of the ARVEN project.
+# `docs/architecture/arven-16.md`
 
-The architecture is being designed from first principles with emphasis on:
+```markdown
+# ARVEN-16 Architecture Specification
 
-- Simplicity
-- Extensibility
-- Educational value
+**Project:** ARVEN  
+**Architecture:** ARVEN-16  
+**Revision:** v0.1  
+**Status:** Architectural Baseline  
+**Specification State:** Under Development
+
+---
+
+# 1. Introduction
+
+ARVEN-16 is the initial 16-bit processor architecture of the ARVEN
+processor family.
+
+The architecture is intended to provide a foundation for deterministic
+real-time embedded computing while maintaining sufficient extensibility
+for future specialized processing and Edge-AI acceleration.
+
+ARVEN-16 is being developed as a complete processor ecosystem rather than
+only as a CPU core.
+
+The long-term project includes:
+
+- ISA
+- Assembly language
+- Assembler
+- Simulator
+- Debugger
+- Verification framework
+- RTL implementation
 - FPGA implementation
-- Software simulation
-- Future Edge-AI acceleration
+- Embedded peripherals
+- SoC integration
+- Specialized processing extensions
 
-## 2. Architectural Baseline
+---
 
-- ISA style: Hybrid RISC
-- Data width: 16-bit
-- Address width: 16-bit
-- Address space: 64 KB
-- General-purpose registers: 8
-- Register width: 16-bit
-- Memory model: Load/Store
-- Endianness: Little-endian
-- Base instruction size: 16-bit
-- Extended instruction size: 32-bit
-- Branching: PC-relative
-- Status flags: Z, C, N, V
-- Stack: Dedicated SP
+# 2. Design Objectives
 
-## 3. General-Purpose Registers
+ARVEN-16 has the following primary architectural objectives.
 
-ARVEN-16 initially provides eight 16-bit general-purpose registers:
+## 2.1 Deterministic execution
 
-R0-R7
+The architecture should support predictable execution behavior suitable
+for real-time embedded systems.
 
-Each register is 16 bits wide.
+## 2.2 Hardware simplicity
 
-Register identifiers therefore require 3 bits.
+The base architecture should remain practical to implement in RTL and
+suitable for FPGA-based implementations.
 
-## 4. Special Registers
+## 2.3 Software simplicity
 
-The initial architecture includes:
+The instruction set should be sufficiently regular to allow the creation
+of a compact assembler, simulator, debugger, and development toolchain.
 
-- PC — Program Counter
-- SP — Stack Pointer
-- FLAGS — Processor status flags
+## 2.4 Extensibility
 
-## 5. Status Flags
+The architecture should provide a defined path for future extensions
+without requiring fundamental changes to the base architecture.
 
-ARVEN-16 currently defines four status flags:
+Potential extensions include:
 
-- Z — Zero
-- C — Carry
-- N — Negative
-- V — Overflow
+- DSP
+- Multiply-accumulate
+- SIMD
+- Vector processing
+- Atomic operations
+- AI acceleration
 
-The exact behavior of each flag will be formally specified during ISA design.
+---
 
-## 6. Memory
+# 3. Architectural Overview
 
-ARVEN-16 uses a 16-bit address space.
+The current ARVEN-16 architectural baseline is:
 
-Therefore:
+| Feature | Specification |
+|---|---|
+| ISA Style | Hybrid RISC |
+| Data Width | 16-bit |
+| Address Width | 16-bit |
+| General-Purpose Registers | 8 |
+| Register Width | 16-bit |
+| Address Space | 64 KB |
+| Memory Addressing | Byte-addressable |
+| Memory Model | Load/Store |
+| Endianness | Little-endian |
+| Base Instruction Size | 16-bit |
+| Extended Instruction Size | 32-bit |
+| Branch Model | PC-relative |
+| Status Flags | Z, C, N, V |
+| Stack | Dedicated SP |
+| AI Support | Future extension |
 
-2^16 = 65536 bytes = 64 KB
+These values represent the current architectural baseline and may be
+refined during ISA design before ARVEN-16 reaches a stable revision.
 
-Memory is byte-addressable.
+---
 
-The architecture uses little-endian byte ordering.
+# 4. Processor Data Width
 
-## 7. Instruction Encoding
+ARVEN-16 is a 16-bit architecture.
 
-The base instruction size is 16 bits.
+The natural general-purpose data size is therefore:
 
-32-bit extended instructions are permitted when additional operand or immediate space is required.
-
-Exact instruction formats and opcode assignments are not yet frozen.
-
-## 8. Addressing Modes
-
-The current architectural baseline permits:
-
-- Register
-- Immediate
-- Absolute
-- Register indirect
-- Register + offset
-- PC-relative
-
-The exact encoding of each addressing mode will be defined in the ISA specification.
-
-## 9. Design Status
-
-This document describes the current architectural baseline.
-
-Instruction formats, opcode assignments, calling conventions, interrupts, privilege levels, and AI extensions remain under design.
+```text
+16 bits
